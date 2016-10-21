@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="XViewPager">
+        <attr name="slideable" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="XBannerView">
+        <attr name="xbv_dots_normal_width" format="dimension" />
+        <attr name="xbv_dots_normal_height" format="dimension" />
+        <attr name="xbv_dots_focused_width" format="dimension" />
+        <attr name="xbv_dots_focused_height" format="dimension" />
+        <attr name="xbv_dots_margin_left" format="dimension" />
+        <attr name="xbv_dots_margin_right" format="dimension" />
+        <attr name="xbv_dots_margin_top" format="dimension" />
+        <attr name="xbv_dots_margin_bottom" format="dimension" />
+        <attr name="xbv_dots_background_focused" format="reference" />
+        <attr name="xbv_dots_background_normal" format="reference" />
+        <attr name="xbv_dots_gradientbackground_visible" format="boolean" />
+        <attr name="xbv_dots_gradientbackground" format="reference" />
+        <attr name="xbv_time" format="integer" />
+        <attr name="xbv_ratio" format="float" />
+    </declare-styleable>
+</resources>

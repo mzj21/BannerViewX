@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.xing.xbannerview.XBannerView
+            android:id="@+id/xbv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:xbv_dots_gradientbackground_visible="false"
+            app:xbv_dots_margin_left="@dimen/_5dp"
+            app:xbv_dots_margin_right="@dimen/_5dp" />
+
+        <com.xing.xbannerview.XBannerView
+            android:id="@+id/xbv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xbv1"
+            android:layout_marginTop="10dp"
+            app:xbv_dots_margin_left="@dimen/_5dp"
+            app:xbv_dots_margin_right="@dimen/_5dp"
+            app:xbv_dots_normal_height="@dimen/_8dp"
+            app:xbv_dots_normal_width="@dimen/_8dp"
+            app:xbv_ratio="0.4" />
+
+        <com.xing.xbannerview.XBannerView
+            android:id="@+id/xbv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xbv2"
+            android:layout_marginTop="@dimen/_10dp"
+            app:xbv_dots_focused_height="@dimen/_15dp"
+            app:xbv_dots_focused_width="@dimen/_15dp"
+            app:xbv_dots_margin_left="@dimen/_5dp"
+            app:xbv_dots_margin_right="@dimen/_5dp"
+            app:xbv_time="3000" />
+
+        <com.xing.xbannerview.XBannerView
+            android:id="@+id/xbv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/xbv3"
+            android:layout_marginTop="@dimen/_10dp"
+            app:xbv_dots_focused_height="@dimen/_10dp"
+            app:xbv_dots_focused_width="@dimen/_20dp"
+            app:xbv_dots_margin_left="@dimen/_5dp"
+            app:xbv_dots_margin_right="@dimen/_5dp"
+            app:xbv_dots_normal_height="@dimen/_10dp"
+            app:xbv_dots_normal_width="@dimen/_10dp"
+            app:xbv_time="4000" />
+    </RelativeLayout>
+</ScrollView>
