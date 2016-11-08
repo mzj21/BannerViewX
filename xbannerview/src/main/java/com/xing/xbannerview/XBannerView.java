@@ -47,7 +47,7 @@ public class XBannerView extends FrameLayout {
     private TypedArray ta;
     private XViewPager banner_xvp;
     private List<View> dots;
-    private RelativeLayout dots_bg;
+    private LinearLayout dots_bg;
     private LinearLayout dots_ll;
     private int size;
     private MarginLayoutParams lp;
@@ -94,7 +94,7 @@ public class XBannerView extends FrameLayout {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.xbannerview, this);
-        dots_bg = (RelativeLayout) findViewById(R.id.dots_bg);
+        dots_bg = (LinearLayout) findViewById(R.id.dots_bg);
         dots_ll = (LinearLayout) findViewById(R.id.dots_ll);
         banner_xvp = (XViewPager) findViewById(R.id.banner_xvp);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) banner_xvp.getLayoutParams();
@@ -197,5 +197,9 @@ public class XBannerView extends FrameLayout {
 
     public void setEnableSwap(boolean enableSwap) {
         banner_xvp.setEnableSwap(enableSwap);
+    }
+
+    public ViewPager getViewPager () {
+        return  banner_xvp;
     }
 }

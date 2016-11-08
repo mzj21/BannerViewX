@@ -6,11 +6,13 @@
 
 ### 目前
 1. 支持单张及多张轮播图无限循环
-2. 支持自定义切换时间
-3. 支持修改宽高比适应多种需求
+2. 支持添加图片点击事件
+3. 支持自定义切换时间
+4. 支持修改宽高比适应多种需求
+5. 支持修改ViewPager切换速率
 
 ### 特别注意
-单图不允许滚动
+单图时以设置不允许滚动
 
 ### 使用
 Step 1. Add it in your root build.gradle at the end of repositories:
@@ -26,7 +28,7 @@ allprojects {
 Step 2. Add the dependency
 ```
 dependencies {
-	    compile 'com.github.mzj21:XBannerView:1.2.0'
+	    compile 'com.github.mzj21:XBannerView:1.2.1'
 }
 ```
 
@@ -60,19 +62,30 @@ public class MyActivity extends Activity {
 ### 例子
 ```
 <com.xing.xbannerview.XBannerView
+	xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/xbannerview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+	app:xbv_dots_focused_height="@dimen/_10dp"
+    app:xbv_dots_focused_width="@dimen/_20dp"
+    app:xbv_dots_margin_left="@dimen/_5dp"
+    app:xbv_dots_margin_right="@dimen/_5dp"
+    app:xbv_dots_normal_height="@dimen/_10dp"
+    app:xbv_dots_normal_width="@dimen/_10dp"
+    app:xbv_time="4000"/>
 ```
 添加数据
 ```
-XBannerView xbannerview = (XBannerView) findViewById(R.id.xbannerview);
+XBannerView xbv = (XBannerView) findViewById(R.id.xbannerview);
+ViewPagerScroller vps = new ViewPagerScroller(this); //控制滑动速率
+vps.setScrollDuration(1500); //设置滑动速率，单位毫秒
+vps.initViewPagerScroll(xbv.getViewPager()); //绑定viewpager
 ArrayList<AdEntity> adEntityList = new ArrayList<>();
 adEntityList.add(new AdEntity("多图第一张", "http://www.youku.com/","http://img.netbian.com/file/2016/1009/41d7174cd21d70fa382df1e6ea76987e.jpg", "net"));
 adEntityList.add(new AdEntity("多图第二张", "http://www.qidian.com/","http://img.netbian.com/file/20150111/421fc98f8f7fc490cd5f0a64f165c734.jpg", "net"));
 adEntityList.add(new AdEntity("多图第三张", "http://www.sina.com.cn/","http://img.netbian.com/file/2016/1016/79907729a7d8d684245082f7b309c3b9.jpg", "net"));
 AdBannerAdapter adBannerAdapter = new AdBannerAdapter(this, adEntityList);
-xbannerview.setDatas(adBannerAdapter);
+xbv.setDatas(adBannerAdapter);
 ```
 添加监听
 ```

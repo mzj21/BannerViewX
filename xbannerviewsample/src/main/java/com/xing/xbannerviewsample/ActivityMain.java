@@ -1,7 +1,7 @@
 package com.xing.xbannerviewsample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,10 +11,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xing.xbannerview.AdBannerAdapter;
 import com.xing.xbannerview.AdEntity;
+import com.xing.xbannerview.ViewPagerScroller;
 import com.xing.xbannerview.XBannerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityMain extends AppCompatActivity {
     XBannerView xbv1, xbv2, xbv3, xbv4;
@@ -54,6 +54,9 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
+        ViewPagerScroller viewPagerScroller1 = new ViewPagerScroller(this);
+        viewPagerScroller1.setScrollDuration(1500);
+        viewPagerScroller1.initViewPagerScroll(xbv2.getViewPager());
         adEntityList2 = new ArrayList<>();
         adEntityList2.add(new AdEntity("双图第一张", "http://www.bilibili.com/",
                 "http://img.netbian.com/file/2016/1017/4eb617e58b535bda58cdc92496afeb8f.jpg", "net"));
@@ -68,6 +71,9 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
+        ViewPagerScroller viewPagerScroller2 = new ViewPagerScroller(this);
+        viewPagerScroller2.setScrollDuration(2500);
+        viewPagerScroller2.initViewPagerScroll(xbv3.getViewPager());
         adEntityList3 = new ArrayList<>();
         adEntityList3.add(new AdEntity("多图第一张", "http://www.youku.com/",
                 "http://img.netbian.com/file/2016/1009/41d7174cd21d70fa382df1e6ea76987e.jpg", "net"));
@@ -84,6 +90,9 @@ public class ActivityMain extends AppCompatActivity {
             }
         });
 
+        ViewPagerScroller viewPagerScroller3 = new ViewPagerScroller(this);
+        viewPagerScroller3.setScrollDuration(1500);
+        viewPagerScroller3.initViewPagerScroll(xbv4.getViewPager());
         adEntityList4 = new ArrayList<>();
         adEntityList4.add(new AdEntity("多图第一张", "http://www.youku.com/",
                 "http://img.netbian.com/file/20150524/c7dfccf48e572d790a3840c21ae769fa.jpg", "net"));
