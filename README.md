@@ -1,5 +1,5 @@
 # xbannerview
-![Demo](https://github.com/mzj21/xbannerview/blob/master/screenshots/xbannerview.gif?raw=true)
+![GIF](https://github.com/mzj21/xbannerview/blob/master/screenshots/xbannerview.gif?raw=true)
 
 ### 简介
 轮播图控件，使用ImageLoader加载图片。
@@ -11,8 +11,8 @@
 4. 支持修改宽高比适应多种需求
 5. 支持修改ViewPager切换速率
 
-### 特别注意
-单图时以设置不允许滚动
+### 下载simpleApk
+[地址](https://github.com/mzj21/xbannerview/blob/master/xbannerviewsample.apk?raw=true)
 
 ### 使用
 Step 1. Add it in your root build.gradle at the end of repositories:
@@ -28,7 +28,7 @@ allprojects {
 Step 2. Add the dependency
 ```
 dependencies {
-	    compile 'com.github.mzj21:XBannerView:1.2.1'
+	    compile 'com.github.mzj21:XBannerView:1.3.0'
 }
 ```
 
@@ -62,24 +62,13 @@ public class MyActivity extends Activity {
 ### 例子
 ```
 <com.xing.xbannerview.XBannerView
-	xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/xbannerview"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-	app:xbv_dots_focused_height="@dimen/_10dp"
-    app:xbv_dots_focused_width="@dimen/_20dp"
-    app:xbv_dots_margin_left="@dimen/_5dp"
-    app:xbv_dots_margin_right="@dimen/_5dp"
-    app:xbv_dots_normal_height="@dimen/_10dp"
-    app:xbv_dots_normal_width="@dimen/_10dp"
-    app:xbv_time="4000"/>
+    android:layout_height="wrap_content"/>
 ```
 添加数据
 ```
 XBannerView xbv = (XBannerView) findViewById(R.id.xbannerview);
-ViewPagerScroller vps = new ViewPagerScroller(this); //控制滑动速率
-vps.setScrollDuration(1500); //设置滑动速率，单位毫秒
-vps.initViewPagerScroll(xbv.getViewPager()); //绑定viewpager
 ArrayList<AdEntity> adEntityList = new ArrayList<>();
 adEntityList.add(new AdEntity("多图第一张", "http://www.youku.com/","http://img.netbian.com/file/2016/1009/41d7174cd21d70fa382df1e6ea76987e.jpg", "net"));
 adEntityList.add(new AdEntity("多图第二张", "http://www.qidian.com/","http://img.netbian.com/file/20150111/421fc98f8f7fc490cd5f0a64f165c734.jpg", "net"));
@@ -96,7 +85,7 @@ adBannerAdapter.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerVie
     }
 });
 ```
-关闭自动播放，开启自动播放，默认大于1图时自动播放
+Activity中关闭自动播放，开启自动播放，默认大于1图时自动播放
 ```
 @Override
 protected void onPause() {
@@ -111,6 +100,9 @@ protected void onResume() {
 ```
 
 ### xml 属性
+- xbv_viewpager_scrollduration: 		viewpager切换速度，默认250毫秒
+- xbv_mode: 							有两个模式，正常模式和滑动模式。默认为正常模式，正常模式为0，滑动模式为1（注意：和xbv_dots_mode不能同时为1）
+- xbv_dots_mode: 						有两个模式，圆形和椭圆形。默认为圆形，圆形为0，椭圆为1（注意：和xbv_mode不能同时为1）
 - xbv_dots_normal_width: 				指示器单个点正常时的宽，默认10dp
 - xbv_dots_normal_height: 				指示器单个点正常时的高，默认10dp
 - xbv_dots_focused_width: 				指示器单个点选中时的宽，默认10dp
@@ -123,5 +115,5 @@ protected void onResume() {
 - xbv_dots_background_normal:   		指示器单个点的正常背景，默认@drawable/xbv_dots_normal
 - xbv_dots_gradientbackground_visible:  指示器的渐变背景是否可见，默认true
 - xbv_dots_gradientbackground:   		指示器的渐变背景，默认@drawable/xbv_dots_gradient
-- xbv_time: 							轮播间隔，单位毫秒，默认5000
+- xbv_autotime: 						轮播间隔，单位毫秒，默认5000毫秒
 - xbv_ratio: 							高度与宽度的比例，默认0.5

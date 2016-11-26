@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
  * ViewPager 滚动速度设置
  */
 public class ViewPagerScroller extends Scroller {
-    private int mScrollDuration = 500; // 滑动速度
+    private int mScrollDuration = 250; // 滑动速度
 
     /**
      * 设置速度速度

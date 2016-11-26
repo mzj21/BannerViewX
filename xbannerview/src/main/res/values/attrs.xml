@@ -4,6 +4,9 @@
         <attr name="slideable" format="boolean" />
     </declare-styleable>
     <declare-styleable name="XBannerView">
+        <attr name="xbv_viewpager_scrollduration" format="integer" />
+        <attr name="xbv_mode" format="integer" />
+        <attr name="xbv_dots_mode" format="integer" />
         <attr name="xbv_dots_normal_width" format="dimension" />
         <attr name="xbv_dots_normal_height" format="dimension" />
         <attr name="xbv_dots_focused_width" format="dimension" />
@@ -16,7 +19,7 @@
         <attr name="xbv_dots_background_normal" format="reference" />
         <attr name="xbv_dots_gradientbackground_visible" format="boolean" />
         <attr name="xbv_dots_gradientbackground" format="reference" />
-        <attr name="xbv_time" format="integer" />
+        <attr name="xbv_autotime" format="integer" />
         <attr name="xbv_ratio" format="float" />
     </declare-styleable>
 </resources>

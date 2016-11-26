@@ -3,6 +3,10 @@ package com.xing.xbannerviewsample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -15,21 +19,33 @@ import com.xing.xbannerview.ViewPagerScroller;
 import com.xing.xbannerview.XBannerView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class ActivityMain extends AppCompatActivity {
-    XBannerView xbv1, xbv2, xbv3, xbv4;
-    AdBannerAdapter adBannerAdapter1, adBannerAdapter2, adBannerAdapter3, adBannerAdapter4;
-    ArrayList<AdEntity> adEntityList1, adEntityList2, adEntityList3, adEntityList4;
+import static com.xing.xbannerviewsample.Data.URLS;
+
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    XBannerView xbv;
+    AdBannerAdapter adBannerAdapter;
+    ArrayList<AdEntity> adEntityList;
+    int num = 1;
+    Switch switch_mode, switch_dots_mode, switch_dots_bg;
+    TextView tv_num;
+    EditText et_scrollduration, et_autotime;
+    ViewPagerScroller vps;
+    Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initImageLoader();
         setContentView(R.layout.activity_main);
-        xbv1 = (XBannerView) findViewById(R.id.xbv1);
-        xbv2 = (XBannerView) findViewById(R.id.xbv2);
-        xbv3 = (XBannerView) findViewById(R.id.xbv3);
-        xbv4 = (XBannerView) findViewById(R.id.xbv4);
+        xbv = (XBannerView) findViewById(R.id.xbv);
+        switch_mode = (Switch) findViewById(R.id.switch_mode);
+        switch_dots_mode = (Switch) findViewById(R.id.switch_dots_mode);
+        switch_dots_bg = (Switch) findViewById(R.id.switch_dots_bg);
+        tv_num = (TextView) findViewById(R.id.tv_num);
+        et_scrollduration = (EditText) findViewById(R.id.et_scrollduration);
+        et_autotime = (EditText) findViewById(R.id.et_autotime);
         init();
     }
 
@@ -42,77 +58,101 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     private void init() {
-        adEntityList1 = new ArrayList<>();
-        adEntityList1.add(new AdEntity("单独第一张", "http://www.baidu.com",
-                "http://imgsrc.baidu.com/forum/pic/item/4adcad014c086e06887e9f9a02087bf408d1cbd7.jpg", "net"));
-        adBannerAdapter1 = new AdBannerAdapter(this, adEntityList1);
-        xbv1.setDatas(adBannerAdapter1);
-        adBannerAdapter1.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
+        tv_num.setText(String.valueOf(num));
+        switch_mode.setOnCheckedChangeListener(this);
+        switch_dots_mode.setOnCheckedChangeListener(this);
+        switch_dots_bg.setOnCheckedChangeListener(this);
+        findViewById(R.id.add).setOnClickListener(this);
+        findViewById(R.id.less).setOnClickListener(this);
+        findViewById(R.id.btn_scrollduration).setOnClickListener(this);
+        findViewById(R.id.btn_autotime).setOnClickListener(this);
+        adEntityList = new ArrayList<>();
+        random = new Random();
+        for (int i = 0; i < num; i++) {
+            adEntityList.add(new AdEntity("第" + (i + 1) + "张", "http://www.baidu.com",
+                    URLS[random.nextInt(URLS.length)], "net"));
+        }
+        adBannerAdapter = new AdBannerAdapter(this, adEntityList);
+        xbv.setDatas(adBannerAdapter);
+        adBannerAdapter.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
             @Override
             public void onClick(View v, int position, AdEntity data) {
                 toast(data.getTitle());
             }
         });
-
-        ViewPagerScroller viewPagerScroller1 = new ViewPagerScroller(this);
-        viewPagerScroller1.setScrollDuration(1500);
-        viewPagerScroller1.initViewPagerScroll(xbv2.getViewPager());
-        adEntityList2 = new ArrayList<>();
-        adEntityList2.add(new AdEntity("双图第一张", "http://www.bilibili.com/",
-                "http://img.netbian.com/file/2016/1017/4eb617e58b535bda58cdc92496afeb8f.jpg", "net"));
-        adEntityList2.add(new AdEntity("双图第二张", "https://github.com",
-                "http://img.netbian.com/file/2016/1017/4daabd33fddc771f38ce47647ca9b71b.jpg", "net"));
-        adBannerAdapter2 = new AdBannerAdapter(this, adEntityList2);
-        xbv2.setDatas(adBannerAdapter2);
-        adBannerAdapter2.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
-            @Override
-            public void onClick(View v, int position, AdEntity data) {
-                toast(data.getTitle());
-            }
-        });
-
-        ViewPagerScroller viewPagerScroller2 = new ViewPagerScroller(this);
-        viewPagerScroller2.setScrollDuration(2500);
-        viewPagerScroller2.initViewPagerScroll(xbv3.getViewPager());
-        adEntityList3 = new ArrayList<>();
-        adEntityList3.add(new AdEntity("多图第一张", "http://www.youku.com/",
-                "http://img.netbian.com/file/2016/1009/41d7174cd21d70fa382df1e6ea76987e.jpg", "net"));
-        adEntityList3.add(new AdEntity("多图第二张", "http://www.qidian.com/",
-                "http://img.netbian.com/file/20150111/421fc98f8f7fc490cd5f0a64f165c734.jpg", "net"));
-        adEntityList3.add(new AdEntity("多图第三张", "http://www.sina.com.cn/",
-                "http://img.netbian.com/file/2016/1016/79907729a7d8d684245082f7b309c3b9.jpg", "net"));
-        adBannerAdapter3 = new AdBannerAdapter(this, adEntityList3);
-        xbv3.setDatas(adBannerAdapter3);
-        adBannerAdapter3.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
-            @Override
-            public void onClick(View v, int position, AdEntity data) {
-                toast(data.getTitle());
-            }
-        });
-
-        ViewPagerScroller viewPagerScroller3 = new ViewPagerScroller(this);
-        viewPagerScroller3.setScrollDuration(1500);
-        viewPagerScroller3.initViewPagerScroll(xbv4.getViewPager());
-        adEntityList4 = new ArrayList<>();
-        adEntityList4.add(new AdEntity("多图第一张", "http://www.youku.com/",
-                "http://img.netbian.com/file/20150524/c7dfccf48e572d790a3840c21ae769fa.jpg", "net"));
-        adEntityList4.add(new AdEntity("多图第二张", "http://www.qidian.com/",
-                "http://img.netbian.com/file/2016/0815/f5644d74a963a883bcb81530361b9dda.jpg", "net"));
-        adEntityList4.add(new AdEntity("多图第三张", "http://www.sina.com.cn/",
-                "http://img.netbian.com/file/2016/0921/13875aedceabd7ae3f7d0b7682464b3f.jpg", "net"));
-        adEntityList4.add(new AdEntity("多图第四张", "http://www.sina.com.cn/",
-                "http://img.netbian.com/file/2016/1013/343dde3d9fe13b6135f671c686120a7c.jpg", "net"));
-        adBannerAdapter4 = new AdBannerAdapter(this, adEntityList4);
-        xbv4.setDatas(adBannerAdapter4);
-        adBannerAdapter4.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
-            @Override
-            public void onClick(View v, int position, AdEntity data) {
-                toast(data.getTitle());
-            }
-        });
+        vps = new ViewPagerScroller(this);
     }
 
     void toast(CharSequence text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.switch_mode:
+                if (switch_dots_mode.isChecked()) {
+                    switch_mode.setChecked(false);
+                    toast("指示器椭圆时不能切换为滑动模式");
+                    return;
+                }
+                xbv.setMode(isChecked ? XBannerView.XBANNERVIEW_MODE_SLIDE : XBannerView.XBANNERVIEW_MODE_NORMAL);
+                refresh();
+                break;
+            case R.id.switch_dots_mode:
+                if (switch_mode.isChecked()) {
+                    switch_dots_mode.setChecked(false);
+                    toast("指示器椭圆时不能切换为滑动模式");
+                    return;
+                }
+                xbv.setDotsMode(isChecked ? XBannerView.XBANNERVIEW_DOTS_MODE_OVAL : XBannerView.XBANNERVIEW_DOTS_MODE_CIRCLE);
+                refresh();
+                break;
+            case R.id.switch_dots_bg:
+                xbv.setDotsBackground(isChecked ? R.drawable.xbv_dots_gradient : 0);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.add:
+                num++;
+                refresh();
+                break;
+            case R.id.less:
+                num--;
+                refresh();
+                break;
+            case R.id.btn_scrollduration:
+                vps.setScrollDuration(Integer.parseInt(et_scrollduration.getText().toString()));
+                vps.initViewPagerScroll(xbv.getViewPager());
+                break;
+            case R.id.btn_autotime:
+                xbv.setAutotime(Integer.parseInt(et_autotime.getText().toString()));
+                break;
+        }
+    }
+
+    void refresh() {
+        if (num < 1) {
+            num = 1;
+        }
+        tv_num.setText(String.valueOf(num));
+        adEntityList = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            adEntityList.add(new AdEntity("第" + (i + 1) + "张", "http://www.baidu.com",
+                    URLS[random.nextInt(URLS.length)], "net"));
+        }
+        adBannerAdapter = new AdBannerAdapter(this, adEntityList);
+        xbv.setDatas(adBannerAdapter);
+        adBannerAdapter.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
+            @Override
+            public void onClick(View v, int position, AdEntity data) {
+                toast(data.getTitle());
+            }
+        });
     }
 }
