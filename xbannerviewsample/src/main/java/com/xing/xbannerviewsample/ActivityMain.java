@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.xing.xbannerview.AdBannerAdapter;
+import com.xing.xbannerview.Adapter_banner_base;
 import com.xing.xbannerview.AdEntity;
 import com.xing.xbannerview.ViewPagerScroller;
 import com.xing.xbannerview.XBannerView;
@@ -25,7 +25,7 @@ import static com.xing.xbannerviewsample.Data.URLS;
 
 public class ActivityMain extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     XBannerView xbv;
-    AdBannerAdapter adBannerAdapter;
+    Adapter_banner_base adapter;
     ArrayList<AdEntity> adEntityList;
     int num = 1;
     Switch switch_mode, switch_dots_mode, switch_dots_bg;
@@ -72,14 +72,8 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             adEntityList.add(new AdEntity("第" + (i + 1) + "张", "http://www.baidu.com",
                     URLS[random.nextInt(URLS.length)], "net"));
         }
-        adBannerAdapter = new AdBannerAdapter(this, adEntityList);
-        xbv.setDatas(adBannerAdapter);
-        adBannerAdapter.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
-            @Override
-            public void onClick(View v, int position, AdEntity data) {
-                toast(data.getTitle());
-            }
-        });
+        adapter = new Adapter_banner(this, adEntityList);
+        xbv.setDatas(adapter);
         vps = new ViewPagerScroller(this);
     }
 
@@ -146,13 +140,7 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             adEntityList.add(new AdEntity("第" + (i + 1) + "张", "http://www.baidu.com",
                     URLS[random.nextInt(URLS.length)], "net"));
         }
-        adBannerAdapter = new AdBannerAdapter(this, adEntityList);
-        xbv.setDatas(adBannerAdapter);
-        adBannerAdapter.setOnBannerViewItemClickListener(new AdBannerAdapter.OnBannerViewItemClickListener() {
-            @Override
-            public void onClick(View v, int position, AdEntity data) {
-                toast(data.getTitle());
-            }
-        });
+        adapter = new Adapter_banner(this, adEntityList);
+        xbv.setDatas(adapter);
     }
 }

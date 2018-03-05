@@ -55,7 +55,6 @@ public class XBannerView extends FrameLayout {
     private boolean dots_background_normal_visible;
     private int autotime;
     private float ratio;
-    private TypedArray ta;
     private XViewPager banner_xvp;
     private List<View> dots;
     private View dot_slide;
@@ -75,7 +74,7 @@ public class XBannerView extends FrameLayout {
     public XBannerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         vps = new ViewPagerScroller(context);
-        ta = context.obtainStyledAttributes(attrs, R.styleable.XBannerView);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.XBannerView);
         DEF_DOTS_NORMAL_WIDTH = getResources().getDimensionPixelOffset(R.dimen._10dp);
         DEF_DOTS_NORMAL_HEIGHT = getResources().getDimensionPixelOffset(R.dimen._10dp);
         DEF_DOTS_FOCUSED_WIDTH = getResources().getDimensionPixelOffset(R.dimen._10dp);
@@ -111,6 +110,7 @@ public class XBannerView extends FrameLayout {
         autotime = ta.getInt(R.styleable.XBannerView_xbv_autotime, DEF_AUTOTIME);
         ratio = ta.getFloat(R.styleable.XBannerView_xbv_ratio, DEF_RATIO);
         init();
+        ta.recycle();
     }
 
     private void init() {
@@ -132,7 +132,7 @@ public class XBannerView extends FrameLayout {
         }
     }
 
-    public void setDatas(final AdBannerAdapter adapt) {
+    public void setDatas(Adapter_banner_base adapt) {
         size = adapt.getRelaSize();
         dots = new ArrayList<>();
         dots_ll.removeAllViews();
@@ -178,7 +178,7 @@ public class XBannerView extends FrameLayout {
         }
 
         banner_xvp.removeAllViews();
-        final int currentItem = Integer.MAX_VALUE / 2 - ((Integer.MAX_VALUE / 2) % size);
+        int currentItem = Integer.MAX_VALUE / 2 - ((Integer.MAX_VALUE / 2) % size);
         try {
             Field field = ViewPager.class.getDeclaredField("mCurItem");
             Field field2 = ViewPager.class.getDeclaredField("mRestoredCurItem");
