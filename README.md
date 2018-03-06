@@ -28,7 +28,7 @@ allprojects {
 Step 2. Add the dependency
 ```
 dependencies {
-	    compile 'com.github.mzj21:XBannerView:1.3.1'
+	    compile 'com.github.mzj21:XBannerView:1.4.1'
 }
 ```
 
