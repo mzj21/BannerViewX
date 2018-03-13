@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.mzj21'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.3"
 
     defaultConfig {
@@ -17,7 +17,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleDynamicVersion,GradleCompatible
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:27.+'
     //noinspection GradleDynamicVersion
-    compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support:support-v4:27.+'
 }

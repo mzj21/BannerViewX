@@ -2,7 +2,7 @@
 ![GIF](https://github.com/mzj21/xbannerview/blob/master/screenshots/xbannerview.gif?raw=true)
 
 ### 简介
-轮播图控件，使用ImageLoader加载图片。
+轮播图控件。
 
 ### 目前
 1. 支持单张及多张轮播图无限循环
@@ -28,7 +28,7 @@ allprojects {
 Step 2. Add the dependency
 ```
 dependencies {
-	    compile 'com.github.mzj21:XBannerView:1.4.1'
+	    compile 'com.github.mzj21:XBannerView:1.4.2'
 }
 ```
 
@@ -101,7 +101,7 @@ protected void onResume() {
 
 ### xml 属性
 - xbv_viewpager_scrollduration: 		viewpager切换速度，默认250毫秒
-- xbv_mode: 							有两个模式，正常模式和滑动模式。默认为正常模式，正常模式为0，滑动模式为1（注意：和xbv_dots_mode不能同时为1）
+- xbv_mode: 							有三个个模式，无、正常模式、滑动模式。默认为正常模式，无为-1，正常模式为0，滑动模式为1（注意：和xbv_dots_mode不能同时为1）
 - xbv_dots_mode: 						有两个模式，圆形和椭圆形。默认为圆形，圆形为0，椭圆为1（注意：和xbv_mode不能同时为1）
 - xbv_dots_normal_width: 				指示器单个点正常时的宽，默认10dp
 - xbv_dots_normal_height: 				指示器单个点正常时的高，默认10dp

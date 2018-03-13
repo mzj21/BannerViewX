@@ -14,7 +14,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.xing.xbannerview.Adapter_banner_base;
-import com.xing.xbannerview.AdEntity;
 import com.xing.xbannerview.ViewPagerScroller;
 import com.xing.xbannerview.XBannerView;
 
@@ -39,13 +38,13 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         initImageLoader();
         setContentView(R.layout.activity_main);
-        xbv = (XBannerView) findViewById(R.id.xbv);
-        switch_mode = (Switch) findViewById(R.id.switch_mode);
-        switch_dots_mode = (Switch) findViewById(R.id.switch_dots_mode);
-        switch_dots_bg = (Switch) findViewById(R.id.switch_dots_bg);
-        tv_num = (TextView) findViewById(R.id.tv_num);
-        et_scrollduration = (EditText) findViewById(R.id.et_scrollduration);
-        et_autotime = (EditText) findViewById(R.id.et_autotime);
+        xbv = findViewById(R.id.xbv);
+        switch_mode = findViewById(R.id.switch_mode);
+        switch_dots_mode = findViewById(R.id.switch_dots_mode);
+        switch_dots_bg = findViewById(R.id.switch_dots_bg);
+        tv_num = findViewById(R.id.tv_num);
+        et_scrollduration = findViewById(R.id.et_scrollduration);
+        et_autotime = findViewById(R.id.et_autotime);
         init();
     }
 

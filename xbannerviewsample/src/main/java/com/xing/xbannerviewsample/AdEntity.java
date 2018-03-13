@@ -1,4 +1,4 @@
-package com.xing.xbannerview;
+package com.xing.xbannerviewsample;
 
 import java.io.Serializable;
 

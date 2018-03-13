@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xing.xbannerview.AdEntity;
 import com.xing.xbannerview.Adapter_banner_base;
 
 import java.util.List;

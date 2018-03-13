@@ -1,5 +1,6 @@
 package com.xing.xbannerview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,7 @@ public class XViewPager extends ViewPager {
         this.enableSwap = enableSwap;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent arg0) {
         return enableSwap && super.onTouchEvent(arg0);

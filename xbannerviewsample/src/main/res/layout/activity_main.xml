@@ -9,7 +9,9 @@
     <com.xing.xbannerview.XBannerView
         android:id="@+id/xbv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:xbv_mode="-1"
+        app:xbv_ratio="0.5" />
 
     <RelativeLayout
         android:layout_width="match_parent"

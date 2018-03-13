@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XBannerView extends FrameLayout {
+    public final static int XBANNERVIEW_MODE_NONE = -1;
     public final static int XBANNERVIEW_MODE_NORMAL = 0;
     public final static int XBANNERVIEW_MODE_SLIDE = 1;
     public final static int XBANNERVIEW_DOTS_MODE_CIRCLE = 0;
@@ -117,10 +118,10 @@ public class XBannerView extends FrameLayout {
         setDotsMode(mode);
         slide_max_width = dots_normal_width + dots_margin_left + dots_margin_right;
         LayoutInflater.from(getContext()).inflate(R.layout.xbannerview, this);
-        dots_bg = (FrameLayout) findViewById(R.id.dots_bg);
-        dots_ll = (LinearLayout) findViewById(R.id.dots_ll);
-        dot_slide_ll = (LinearLayout) findViewById(R.id.dots_slide_ll);
-        banner_xvp = (XViewPager) findViewById(R.id.banner_xvp);
+        dots_bg = findViewById(R.id.dots_bg);
+        dots_ll = findViewById(R.id.dots_ll);
+        dot_slide_ll = findViewById(R.id.dots_slide_ll);
+        banner_xvp = findViewById(R.id.banner_xvp);
 
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) banner_xvp.getLayoutParams();
         layoutParams.height = (int) (getResources().getDisplayMetrics().widthPixels * ratio);
@@ -134,47 +135,61 @@ public class XBannerView extends FrameLayout {
 
     public void setDatas(Adapter_banner_base adapt) {
         size = adapt.getRelaSize();
-        dots = new ArrayList<>();
-        dots_ll.removeAllViews();
-        dot_slide_ll.removeAllViews();
 
-        layoutParams_normal = new LinearLayout.LayoutParams(dots_normal_width, dots_normal_height);
-        layoutParams_normal.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
+        switch (mode) {
+            case XBANNERVIEW_MODE_NONE:
+                //NONE
+                break;
+            case XBANNERVIEW_MODE_NORMAL:
+                dots = new ArrayList<>();
+                dots_ll.removeAllViews();
+                dot_slide_ll.removeAllViews();
 
-        if (mode == XBANNERVIEW_MODE_NORMAL) {
-            for (int i = 0; i < size; i++) {
-                View view = new View(getContext());
-                if (i == 0) {
-                    layoutParams_focused = new LinearLayout.LayoutParams(dots_focused_width_new, dots_focused_height);
-                    layoutParams_focused.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
-                    view.setLayoutParams(layoutParams_focused);
-                    view.setBackgroundResource(dots_background_focused);
-                } else {
+                layoutParams_normal = new LinearLayout.LayoutParams(dots_normal_width, dots_normal_height);
+                layoutParams_normal.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
+                for (int i = 0; i < size; i++) {
+                    View view = new View(getContext());
+                    if (i == 0) {
+                        layoutParams_focused = new LinearLayout.LayoutParams(dots_focused_width_new, dots_focused_height);
+                        layoutParams_focused.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
+                        view.setLayoutParams(layoutParams_focused);
+                        view.setBackgroundResource(dots_background_focused);
+                    } else {
+                        view.setLayoutParams(layoutParams_normal);
+                        view.setBackgroundResource(dots_background_normal);
+                    }
+                    dots_ll.addView(view);
+                    dots.add(view);
+                }
+                break;
+            case XBANNERVIEW_MODE_SLIDE:
+                dots = new ArrayList<>();
+                dots_ll.removeAllViews();
+                dot_slide_ll.removeAllViews();
+
+                layoutParams_normal = new LinearLayout.LayoutParams(dots_normal_width, dots_normal_height);
+                layoutParams_normal.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
+                for (int i = 0; i < size; i++) {
+                    View view = new View(getContext());
                     view.setLayoutParams(layoutParams_normal);
                     view.setBackgroundResource(dots_background_normal);
+                    dots_ll.addView(view);
+                    dots.add(view);
                 }
-                dots_ll.addView(view);
-                dots.add(view);
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                View view = new View(getContext());
-                view.setLayoutParams(layoutParams_normal);
-                view.setBackgroundResource(dots_background_normal);
-                dots_ll.addView(view);
-                dots.add(view);
-            }
-            FrameLayout.LayoutParams dot_slide_ll_lp = (LayoutParams) dot_slide_ll.getLayoutParams();
-            dot_slide_ll_lp.width = slide_max_width * size;
-            dot_slide_ll_lp.height = dots_ll.getHeight();
-            dot_slide_ll.setLayoutParams(dot_slide_ll_lp);
-            dot_slide = new View(getContext());
-            layoutParams_focused = new LinearLayout.LayoutParams(dots_focused_width, dots_focused_height);
-            layoutParams_focused.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
-            dot_slide.setLayoutParams(layoutParams_focused);
-            dot_slide.setBackgroundResource(dots_background_focused);
-            dot_slide_ll.addView(dot_slide);
-            dot_slide_mlp = (MarginLayoutParams) dot_slide.getLayoutParams();
+                FrameLayout.LayoutParams dot_slide_ll_lp = (LayoutParams) dot_slide_ll.getLayoutParams();
+                dot_slide_ll_lp.width = slide_max_width * size;
+                dot_slide_ll_lp.height = dots_ll.getHeight();
+                dot_slide_ll.setLayoutParams(dot_slide_ll_lp);
+                dot_slide = new View(getContext());
+                layoutParams_focused = new LinearLayout.LayoutParams(dots_focused_width, dots_focused_height);
+                layoutParams_focused.setMargins(dots_margin_left, dots_margin_top, dots_margin_right, dots_margin_bottom);
+                dot_slide.setLayoutParams(layoutParams_focused);
+                dot_slide.setBackgroundResource(dots_background_focused);
+                dot_slide_ll.addView(dot_slide);
+                dot_slide_mlp = (MarginLayoutParams) dot_slide.getLayoutParams();
+                break;
+            default:
+                break;
         }
 
         banner_xvp.removeAllViews();
@@ -195,14 +210,25 @@ public class XBannerView extends FrameLayout {
             e.printStackTrace();
         }
         banner_xvp.setAdapter(adapt);
-        PageChangeListener pageChangeListener = new PageChangeListener();
-        banner_xvp.addOnPageChangeListener(pageChangeListener);
+        banner_xvp.addOnPageChangeListener(new PageChangeListener());
         setEnableSwap(size != 1);//1个的时候不自动轮播
         if (size == 1) {
             onStop();
         } else {
             onStart();
         }
+    }
+
+    interface OnPageChangeListener {
+        void onPageSelected(int position);
+
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+    }
+
+    private OnPageChangeListener onPageChangeListener;
+
+    public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+        this.onPageChangeListener = onPageChangeListener;
     }
 
     private class PageChangeListener implements ViewPager.OnPageChangeListener {
@@ -217,10 +243,12 @@ public class XBannerView extends FrameLayout {
                 handler.removeCallbacks(runnable);
                 handler.postDelayed(runnable, autotime);
             }
+            if (onPageChangeListener != null) {
+                onPageChangeListener.onPageSelected(position);
+            }
         }
 
         public void onPageScrollStateChanged(int state) {
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -234,6 +262,9 @@ public class XBannerView extends FrameLayout {
                 }
                 handler.removeCallbacks(runnable);
                 handler.postDelayed(runnable, autotime);
+            }
+            if (onPageChangeListener != null) {
+                onPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
         }
     }
