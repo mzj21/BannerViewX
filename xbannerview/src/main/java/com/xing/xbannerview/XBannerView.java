@@ -219,7 +219,7 @@ public class XBannerView extends FrameLayout {
         }
     }
 
-    interface OnPageChangeListener {
+    public interface OnPageChangeListener {
         void onPageSelected(int position);
 
         void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
